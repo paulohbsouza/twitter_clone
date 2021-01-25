@@ -9,7 +9,7 @@
 	require_once('db.class.php');
 
 	$texto_tweet = $_POST['texto_tweet'];
-	$id_usuario = $_SESSION['id'];
+	$id_usuario = $_SESSION['id_usuario'];
 
 	if ($texto_tweet == '' || $id_usuario == '') {
 		die();
