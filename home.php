@@ -21,6 +21,34 @@
 		<!-- bootstrap - link cdn -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 	
+		<script type="text/javascript">
+			
+			$(document).ready(function(){
+
+				$('#btn_tweet').click(function(){
+
+					if ($('#texto_tweet').val().length > 0){
+
+						$.ajax({
+
+							url: 'inclui_tweet.php',
+							method: 'post',
+							data: $('#form_tweet').serialize(), //{texto_tweet: $('#texto_tweet').val()},
+							success: function(data) {
+								$('#texto_tweet').val('');
+								alert('Tweet incluído com sucesso!');
+							}
+
+						});
+
+					}
+
+				});
+
+			});
+
+		</script>
+
 	</head>
 
 	<body>
@@ -66,12 +94,12 @@
 	    	<div class="col-md-6">
 	    		<div class="panel panel-default">
 	    			<div class="panel-body">
-	    				<dir class="input-group">
-	    					<input type="text" class="form-control" placeholder="O que está acontecendo agora?" maxlength="140" name=""/>
+	    				<form id="form_tweet" class="input-group" method="post" action="#">
+	    					<input type="text" id="texto_tweet" name="texto_tweet" class="form-control" placeholder="O que está acontecendo agora?" maxlength="140" name=""/>
 	    					<span class="input-group-btn">
-	    						<button class="btn btn-default" type="button">Tweet</button>
+	    						<button class="btn btn-default" type="button" id="btn_tweet">Tweet</button>
 	    					</span>
-	    				</dir>
+	    				</form>
 	    			</div>
 	    		</div>
 	    	</div>
