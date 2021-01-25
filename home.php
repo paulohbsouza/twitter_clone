@@ -26,11 +26,8 @@
 			$(document).ready(function(){
 
 				$('#btn_tweet').click(function(){
-
 					if ($('#texto_tweet').val().length > 0){
-
 						$.ajax({
-
 							url: 'inclui_tweet.php',
 							method: 'post',
 							data: $('#form_tweet').serialize(), //{texto_tweet: $('#texto_tweet').val()},
@@ -38,12 +35,20 @@
 								$('#texto_tweet').val('');
 								alert('Tweet incluído com sucesso!');
 							}
-
 						});
-
 					}
-
 				});
+
+				function atualizaTweet(){
+					$.ajax({
+						url: 'get_tweet.php';
+						success: function(data) {
+							$('#tweets').html(data);
+						}
+					});
+				}
+
+				atualizaTweet();
 
 			});
 
@@ -102,6 +107,13 @@
 	    				</form>
 	    			</div>
 	    		</div>
+
+	    		<div id="tweets" class="list-group">
+	    			
+
+
+	    		</div>
+
 	    	</div>
 			<div class="col-md-3">
 				<div class="panel panel-default">
