@@ -1,45 +1,33 @@
 <?php
-
 	$erro = isset($_GET['erro']) ? $_GET['erro'] : 0;
-
 ?>
-
 
 <!DOCTYPE HTML>
 <html lang="pt-br">
 	<head>
 		<meta charset="UTF-8">
-
 		<title>Twitter clone</title>
-
 		<!-- jquery - link cdn -->
 		<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-
 		<!-- bootstrap - link cdn -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-	
 		<script>
 			$(document).ready(function(){
-
 				//verificar se os campos de usuárioe senha foram preenchidos
 				$('#btn_login').click(function(){
-
 					var campo_vazio = false;
-
 					if($('#campo_usuario').val() == ''){
 						$('#campo_usuario').css({'border-color': '#A94442'});
 						campo_vazio = true;
 					} else {
 						$('#campo_usuario').css({'border-color': '#CCC'});
 					}
-
 					if($('#campo_senha').val() == ''){
 						$('#campo_senha').css({'border-color': '#A94442'});
 						campo_vazio = true;
 					} else {
 						$('#campo_senha').css({'border-color': '#CCC'});
 					}
-
 					if(campo_vazio) return false;
 				});
 			});						
@@ -47,7 +35,6 @@
 	</head>
 
 	<body>
-
 		<!-- Static navbar -->
 	    <nav class="navbar navbar-default navbar-static-top">
 	      <div class="container">
@@ -86,13 +73,10 @@
 							</form>
 
 							<?php
-
 								if ($erro == 1) {
 									echo '<font color="#FF0000">Usuário ou Senha inválidos(s).</font>';
 								}
-
 							?>
-
 
 						</form>
 				  	</ul>
@@ -102,22 +86,15 @@
 	      </div>
 	    </nav>
 
-
 	    <div class="container">
-
 	      <!-- Main component for a primary marketing message or call to action -->
 	      <div class="jumbotron">
 	        <h1>Bem vindo ao twitter clone</h1>
 	        <p>Veja o que está acontecendo agora...</p>
 	      </div>
-
 	      <div class="clearfix"></div>
 		</div>
-
-
 	    </div>
-	
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-	
 	</body>
 </html>
