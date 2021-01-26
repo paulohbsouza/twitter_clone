@@ -1,63 +1,48 @@
 <?php
-
 	session_start();
-
 	if(!isset($_SESSION['usuario'])){
 		header('Location: index.php?erro=1');
 	}
-
 ?>
 
 <!DOCTYPE HTML>
 <html lang="pt-br">
 	<head>
 		<meta charset="UTF-8">
-
 		<title>Twitter clone</title>
-		
 		<!-- jquery - link cdn -->
 		<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-
 		<!-- bootstrap - link cdn -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-	
 		<script type="text/javascript">
-			
 			$(document).ready(function(){
-
 				$('#btn_tweet').click(function(){
 					if ($('#texto_tweet').val().length > 0){
 						$.ajax({
 							url: 'inclui_tweet.php',
 							method: 'post',
-							data: $('#form_tweet').serialize(), //{texto_tweet: $('#texto_tweet').val()},
+							data: $('#form_tweet').serialize(), // {texto_tweet: $('#texto_tweet').val()},
 							success: function(data) {
 								$('#texto_tweet').val('');
-								alert('Tweet incluído com sucesso!');
+								atualizaTweet();
 							}
 						});
 					}
 				});
-
 				function atualizaTweet(){
 					$.ajax({
-						url: 'get_tweet.php';
+						url: 'get_tweet.php',
 						success: function(data) {
 							$('#tweets').html(data);
 						}
 					});
 				}
-
 				atualizaTweet();
-
 			});
-
 		</script>
-
 	</head>
 
 	<body>
-
 		<!-- Static navbar -->
 	    <nav class="navbar navbar-default navbar-static-top">
 	      <div class="container">
@@ -69,8 +54,7 @@
 	            <span class="icon-bar"></span>
 	          </button>
 	          <img src="imagens/icone_twitter.png" />
-	        </div>
-	        
+	        </div>        
 	        <div id="navbar" class="navbar-collapse collapse">
 	          <ul class="nav navbar-nav navbar-right">
 	            <li><a href="sair.php">Sair</a></li>
@@ -79,9 +63,7 @@
 	      </div>
 	    </nav>
 
-
 	    <div class="container">
-
 	    	<div class="col-md-3">
 	    		<div class="panel panel-default">
 	    			<dir class="panel-body">
@@ -107,18 +89,14 @@
 	    				</form>
 	    			</div>
 	    		</div>
-
-	    		<div id="tweets" class="list-group">
-	    			
-
+	    		<div id="tweets" class="list-group">    		
 
 	    		</div>
-
 	    	</div>
 			<div class="col-md-3">
 				<div class="panel panel-default">
 					<div class="panel-body">
-						<h4><a href="#">Procurar por pessoas</a></h4>
+						<h4><a href="procurar_pessoas.php">Procurar por pessoas</a></h4>
 					</div>
 				</div>
 			</div>
