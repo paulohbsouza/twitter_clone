@@ -3,6 +3,39 @@
 	if(!isset($_SESSION['usuario'])){
 		header('Location: index.php?erro=1');
 	}
+
+	require_once('db.class.php');
+
+	$objDb = new db();
+	$link = $objDb->conecta_mysql();
+
+	$id_usuario = $_SESSION['id_usuario'];
+
+	//--qtde de twetts
+	$sql = "SELECT COUNT(*) AS qtde_tweets FROM tweet WHERE id_usuario = $id_usuario";
+	//echo $sql;
+	$resultado_id = mysqli_query($link, $sql);
+	$qtde_tweets = 0;
+	if ($resultado_id) {
+		$registro = mysqli_fetch_array($resultado_id, MYSQLI_ASSOC);
+		$qtde_tweets = $registro['qtde_tweets'];
+	} else {
+		echo 'Erro ao executar a query';
+	}
+
+	//--qtde se seguidores
+	$sql = "SELECT COUNT(*) AS qtde_seguidores FROM usuarios_seguidores WHERE seguindo_id_usuario = $id_usuario";
+	//echo $sql;
+	$resultado_id = mysqli_query($link, $sql);
+	$qtde_seguidores = 0;
+	if ($resultado_id) {
+		$registro = mysqli_fetch_array($resultado_id, MYSQLI_ASSOC);
+		$qtde_seguidores = $registro['qtde_seguidores'];
+	} else {
+		echo 'Erro ao executar a query';
+	}
+
+	
 ?>
 
 <!DOCTYPE HTML>
@@ -28,12 +61,33 @@
 								$('.btn_seguir').click(function(){
 									var id_usuario = $(this).data('id_user');
 
+									$('#seguir_'+id_usuario).hide();
+									$('#deixar_seguir_'+id_usuario).show();
+
 									$.ajax({
 										url: 'seguir.php',
 										method: 'post',
 										data: { seguir_id_usuario: id_usuario },
 										success: function(data){
-											alert('registrado');
+											alert('Seguir. Registrado.');
+										}
+
+									});
+
+								});
+
+								$('.btn_deixar_seguir').click(function(){
+									var id_usuario = $(this).data('id_user');
+
+									$('#seguir_'+id_usuario).show();
+									$('#deixar_seguir_'+id_usuario).hide();
+
+									$.ajax({
+										url: 'deixar_seguir.php',
+										method: 'post',
+										data: { deixar_seguir_id_usuario: id_usuario },
+										success: function(data){
+											alert('Deixar de Seguir. Registrado.');
 										}
 
 									});
@@ -77,10 +131,10 @@
 	    				<h4><?= $_SESSION['usuario']?></h4>
 	    				<hr/>
 	    				<div class="col-md-6">
-	    					TWEETS <br/> 1
+	    					TWEETS <br/> <?= $qtde_tweets ?>
 	    				</div>
 	    				<div class="col-md-6">
-	    					SEUGIDORES <br/> 1
+	    					SEUGIDORES <br/> <?= $qtde_seguidores ?>
 	    				</div>
 	    			</dir>
 	    		</div>
