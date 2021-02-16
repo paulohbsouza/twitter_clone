@@ -34,5 +34,4 @@
 		echo "erro na consulta de tweets no banco de dados!";
 	}
 
-
 ?>
